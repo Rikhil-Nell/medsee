@@ -1,0 +1,22 @@
+---
+description: Testing conventions for the medsee POC
+globs: tests/**
+alwaysApply: false
+---
+
+# Testing
+
+- Use `pytest` with `pytest-asyncio` (mode=auto in pyproject.toml).
+- Use `httpx.AsyncClient` with `ASGITransport` for API tests.
+- **Mock LLM calls** in unit tests — no live OpenAI API calls in CI.
+- Test both happy path and error paths (malformed Call 1, invalid modality).
+- One test file per feature area: `test_health.py`, `test_reports.py`, etc.
+
+```python
+@pytest.fixture
+async def client():
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        yield ac
+```

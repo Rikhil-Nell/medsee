@@ -1,0 +1,25 @@
+---
+description: FastAPI route and dependency patterns
+globs: src/medsee/**/*.py
+alwaysApply: false
+---
+
+# FastAPI Patterns
+
+- Routes in `api/routes/` stay thin — validate input, call service, return response.
+- Business logic belongs in `services/`, not route handlers.
+- Use FastAPI dependency injection for settings: `Depends(get_settings)`.
+- Use `APIRouter` per resource; register in `api/router.py`.
+- Return Pydantic models directly — FastAPI serializes them.
+- Use `HTTPException` for client errors (422 validation is automatic via Pydantic).
+
+```python
+# Good: thin route
+@router.post("/reports")
+async def create_report(
+    service: Annotated[PipelineService, Depends(get_pipeline_service)],
+) -> PipelineResponse:
+    return await service.run(...)
+
+# Bad: LLM logic in route handler
+```

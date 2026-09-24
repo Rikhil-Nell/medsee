@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-flame: #f15025;
+  --color-flame-dark: #c93f18;
+  --color-surface: #ffffff;
+  --color-canvas: #e6e8e6;
+  --color-muted: #ced0ce;
+  --color-ink: #191919;
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+  }
+}
+
+@layer utilities {
+  .scroll-pane {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-muted) 70%, transparent) transparent;
+  }
+
+  .scroll-pane::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scroll-pane::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scroll-pane::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-muted) 80%, var(--color-ink) 20%);
+    border-radius: 999px;
+  }
+
+  .scroll-pane::-webkit-scrollbar-thumb:hover {
+    background: var(--color-muted);
+  }
+}

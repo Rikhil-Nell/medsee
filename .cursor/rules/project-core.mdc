@@ -1,0 +1,15 @@
+---
+description: Core project standards for the Medsee POC
+alwaysApply: true
+---
+
+# Project Core
+
+- This is a **POC** for a multi-step radiology reporting pipeline (backend complete; web UI in Phase 9).
+- **OpenAI only** for LLM calls (via Pydantic AI). No other providers.
+- **Rich terminal logging** only — no Logfire, no OpenTelemetry.
+- Update [`TASKS.md`](TASKS.md) when you finish a phase or meaningful chunk of work — not on every turn.
+- Keep changes scoped to the current phase in TASKS.md.
+- Before marking work done: `uv run ruff check .` and `uv run pytest`.
+- Never commit secrets — use `.env.example` for documentation.
+- Package manager is `uv`; do not use pip directly.

@@ -1,0 +1,14 @@
+{
+  "MRI": {
+    "description": "Magnetic resonance imaging pipeline",
+    "steps": ["findings_extraction", "report_assembly"]
+  },
+  "CT": {
+    "description": "Computed tomography pipeline",
+    "steps": ["findings_extraction", "report_assembly"]
+  },
+  "XRAY": {
+    "description": "X-ray pipeline",
+    "steps": ["findings_extraction", "report_assembly"]
+  }
+}

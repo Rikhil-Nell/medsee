@@ -1,0 +1,23 @@
+---
+description: Pydantic AI chained LLM call patterns
+globs: src/medsee/{llm,models}/**
+alwaysApply: false
+---
+
+# LLM Chain Patterns
+
+- Use **Pydantic AI** agents with structured `output_type` (Pydantic model).
+- Call 1 output MUST be validated before feeding into Call 2 — never pass raw LLM text.
+- Define all schemas in `models/`; agents reference them as output types.
+- On validation failure: set step status to `failed`, log at WARNING, return degraded response.
+- Chain is sequential: Call 2 input = validated Call 1 output, not independent parallel calls.
+
+```python
+# Good: structured output with validation gate
+findings = await findings_agent.run(...)
+validated = FindingsResult.model_validate(findings.output)
+report = await report_agent.run(validated.model_dump_json())
+
+# Bad: passing raw string between calls
+report = await report_agent.run(findings.raw_text)
+```

@@ -1,0 +1,46 @@
+[project]
+name = "medsee"
+version = "0.1.0"
+description = "FastAPI POC for multi-step radiology reporting pipeline"
+readme = "README.md"
+authors = [
+    { name = "Rikhil Nellimarla", email = "nrikhil@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.141.1",
+    "pillow>=11.2.1",
+    "openai>=1.82.0",
+    "pydantic>=2.13.5",
+    "pydantic-ai-slim[openai]>=0.2.0",
+    "pydantic-settings>=2.9.1",
+    "python-multipart>=0.0.20",
+    "rich>=14.0.0",
+    "uvicorn[standard]>=0.34.0",
+]
+
+[project.scripts]
+medsee = "medsee.main:main"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+    "ruff>=0.11.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
